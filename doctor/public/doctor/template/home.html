@@ -1,0 +1,61 @@
+<ul id="myTab" class="nav nav-tabs" >
+	<li class="active" id="tab0">
+		<a href="#home" ng-click="changetab(0)" data-toggle="tab">
+			Home
+		</a>
+	</li>
+	<li id="tab1">
+		<a ng-click="goselfinfo()">Account</a>
+	</li>
+	<li id="tab2">
+		<a ng-click="changetab(2)">Calendar</a>
+	</li>
+	<li id="tab3">
+		<a ng-click="changetab(3)">Events</a>
+
+	</li>
+	<li id="tab4">
+		<a ng-click="logout()">Logout</a>
+	</li>
+</ul>
+<div id="myTabContent" class="tab-content" style="background:rgba(0, 0, 0, 0);height: 800px;">
+<!--<div id="myTabContent" class="tab-content" ng-style="{'background-image':'url(/images/bg.jpg)'}">-->
+
+	<div class="tab-pane fade in active" id="home" ng-if="currentindex==0">
+		<p align = "center"> Hello Dr. {{doctorinfo.name}}</p>
+
+		<p align="center" ng-if="infocomplete">Personal information in-complete! </p>
+
+		<p align="center" ng-if="nolist">No appointment today! </p>
+		
+		<div class="row">
+			<div class="col-xs-4" ng-repeat="item in todayappointlist track by  $index">
+				<div style="border:solid;border-color: #CCCCCC;text-align: center;background: white;margin: 10px;">
+					<p>Customer name:{{item.name}}</p>
+					<p>Customer Email:{{item.email}}</p>
+					<p>Customer Phone:{{item.phone}}</p>
+					<p>Date&time:{{item.scheduletime}}</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!--account-->
+	
+
+<!--calendar-->
+<div class="tab-pane fade in active" id="home" ng-if="currentindex==2">
+	<div ui-calendar="uiConfig.calendar" ng-model="eventSources" ng-click="alertEventOnClick()"></div>
+</div>
+
+<div class="tab-pane fade in active" id="home" ng-if="currentindex==3">
+	<h2>All Events</h2>
+	<div style="margin-left: 40px;" ng-repeat="item in historylist track by $index">
+		<div style="border:solid;background: white;width: 50%;border-color: #CCCCCC">
+			<h4>{{item.scheduletime}}</h4>
+			<p>Customer:{{item.name}}</p>
+			<p>Gender:{{item.gender}}</p>
+		</div>
+	</div>
+</div>
+</div>

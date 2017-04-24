@@ -1,0 +1,21 @@
+	 <div class="col-md-5" style="margin-left: 40%;margin-top: 15%;">
+        <form role="form" class="form-horizontal">
+        	    <h2>Login</h2>
+            <div class="form-group">                 
+                <div class="col-md-8">
+                		<label for="name">username</label>
+                    <input class="form-control" id="name" type="text" required ng-model='loginform.email' />
+                </div>
+            </div>
+            <div class="form-group">                  
+                <div class="col-md-8">
+                		<label for="minlength">password</label>
+                    <input type="password" id="minlength" ng-minlength="5" ng-model="loginform.password" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group text-center"  style="float: left;margin-left: 0px;">
+                <button class="btn btn-primary" ng-click="login()">Login</button>
+                <button class="btn btn-default" ng-click="goregister()">Register</button>
+            </div>
+        </form>       
+    </div>

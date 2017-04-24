@@ -1,0 +1,38 @@
+	 <div class="col-md-5" style="margin-left: 40%;margin-top: 15%;">
+        <form role="form" class="form-horizontal" name="registerForm">
+        	    <h2>Register</h2>
+            <div class="form-group">                 
+                <div class="col-md-8">
+                		<label for="name">Username</label>
+                    <input class="form-control" name="email" id="name" type="email" ng-model='FormData.email' required />
+                    	<div ng-messages="registerForm.email.$error" ng-if="registerForm.email.$dirty" style="color:maroon" role="alert">
+						<div ng-message="required">email required</div>
+						<div ng-message="email">incorrect email format</div>						
+					</div>
+                </div>
+            </div>
+            <div class="form-group">                  
+                <div class="col-md-8">
+                		<label for="minlength">Password</label>
+                    <input type="password" id="minlength" minlength="5" name="password" ng-model='FormData.password' class="form-control"  required />
+                    <div ng-messages="registerForm.password.$error" ng-if="registerForm.password.$dirty" style="color:maroon" role="alert">
+						<div ng-message="required">password required</div>
+						<div ng-message="minlength">minlength is 5</div>						
+					</div>
+                </div>
+            </div>
+            <div class="form-group">                  
+                <div class="col-md-8">
+                		<label for="minlength">ConfirmPassword</label>
+                    <input type="password" id="minlength" minlength="5" name="confirmpwd" ng-model="FormData.confirmpwd" class="form-control" required/>
+                    <div ng-messages="registerForm.confirmpwd.$error" ng-if="registerForm.confirmpwd.$dirty" style="color:maroon" role="alert">
+						<div ng-message="required">ConfirmPassword required</div>					
+					</div>
+                </div>
+            </div>
+            <div class="form-group text-center"  style="float: left;margin-left: 0px;">
+                <button class="btn btn-primary" ng-click="Submit()">Register</button>
+                <button class="btn btn-default" ng-click="gologin()">Cancel</button>
+            </div>
+        </form>       
+    </div>

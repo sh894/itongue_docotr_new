@@ -1,0 +1,10 @@
+{
+  "name": "angular-messages",
+  "version": "1.5.9-build.5079+sha.eeb9ef0",
+  "license": "MIT",
+  "main": "./angular-messages.js",
+  "ignore": [],
+  "dependencies": {
+    "angular": "1.5.9-build.5079+sha.eeb9ef0"
+  }
+}

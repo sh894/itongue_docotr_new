@@ -1,0 +1,70 @@
+
+<button class="btn btn-danger" style="margin-left: 10px;margin-top: 10px;float: right;" ng-click="gohome()">back</button>
+			<h3>Complete profile</h3>
+		<div class="row" style="margin-left: 20px;">
+			<div class="col-xs-6">
+				<input type="file" id="one-input" accept="image/jpg,image/jpeg,image/png" ng-model="file"
+                     style="opacity: 0;height: 150px;width: 150px;font-size: 30px;position: absolute;z-index: 100;"/>
+				<img style="height: 160px;width:140px;border:solid;border-color: #CCCCCC;margin-left: 15px;" src="{{postinfo.headimg}}" /></br>
+				<label style="margin-top: 20px;margin-left: 15px;">
+						<label>sex:</label>
+				<select ng-model="postinfo.gender"  ng-options="check for check in check">
+				</select>
+						
+				</label>
+				<div class="form-group">
+					<div class="col-md-12">
+						<label for="name">Age</label>
+						<input class="form-control" id="name" type="text" ng-model="postinfo.age" required/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12" style="margin-top: 20px;">
+						<label for="minlength">Hospital</label>
+						<input type="text"  ng-model="postinfo.clinic"  class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12" style="margin-top: 20px;">
+						<label for="minlength">Department</label>
+						<input type="text"  ng-model="postinfo.department" class="form-control" />
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-6" style="margin-top: 34px;">
+				<div class="form-group">
+					<div class="col-md-12" style="margin-top: 20px;">
+						<label for="name">Name</label>
+						<input class="form-control" ng-model="postinfo.name" type="text" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12" style="margin-top: 20px;">
+						<label for="minlength">Telephone</label>
+						<input  type="number"  ng-model="postinfo.telephone" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12" style="margin-top: 20px;">
+						<label for="minlength">Email</label>
+						<input type="text"  placeholder="{{doctorinfo.email}}"   class="form-control" disabled = "true"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12" style="margin-top: 20px;">
+						<label for="minlength">Speciallist</label>
+						<input type="text"  ng-model="postinfo.specialist" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12" style="margin-top: 20px;">
+						<label for="minlength">Link</label>
+						<input type="text"  ng-model="postinfo.link" class="form-control">
+					</div>
+				</div>
+			</div>
+		</div>
+		<label style="margin-left: 50px;">Short instrodution</label></br>
+		<textarea style="margin-left: 50px;width: 60%;height: 100px;" ng-model="postinfo.introduction"></textarea></br>
+		<button class="btn btn-danger" style="margin-left: 50%;width: 150px;height: 60px;" ng-click="Submit()">Save changes</button>
