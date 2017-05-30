@@ -32,5 +32,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller: 'selfinfoCtrl'
 		})
 
+});
 
+app.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        console.log("input" + input)
+        return input.slice(start);
+    }
 });

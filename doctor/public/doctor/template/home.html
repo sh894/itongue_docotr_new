@@ -1,24 +1,47 @@
 <ul id="myTab" class="nav nav-tabs" >
+
 	<li class="active" id="tab0">
-		<a href="#home" ng-click="changetab(0)" data-toggle="tab">
-			Home
+		<a class="navbar-brand" href="#home" ng-click="changetab(0)" data-toggle="tab">
+			<span class="glyphicon glyphicon-home">Home</span>
 		</a>
 	</li>
+
 	<li id="tab1">
-		<a ng-click="goselfinfo()">Account</a>
+		<a ng-click="goselfinfo()">
+			<span class="glyphicon glyphicon-user">Account</span>
+		</a>
 	</li>
 	<li id="tab2">
-		<a ng-click="changetab(2)">Calendar</a>
+		<a ng-click="changetab(2)">
+			<span class="glyphicon glyphicon-time">
+				Calendar
+			</span>
+		</a>
 	</li>
 	<li id="tab3">
-		<a ng-click="changetab(3)">Events</a>
+		<a ng-click="changetab(3)">
+			<span class="glyphicon glyphicon-th-list">
+				Events
+			</span>
+		</a>
 
 	</li>
 	<li id="tab4">
-		<a ng-click="logout()">Logout</a>
+		<a ng-click="logout()">
+			<span class="glyphicon glyphicon-log-out">
+				Logout
+			</span>
+		</a>
+	</li>
+	<li id="tab5" ng-show="doctorinfo.admin==1">
+		<a ng-click="changetab(5)">
+			<span class="glyphicon glyphicon-euro">
+				Admin
+			</span>
+		</a>
 	</li>
 </ul>
-<div id="myTabContent" class="tab-content" style="background:rgba(0, 0, 0, 0);height: 800px;">
+<div id="myTabContent" class="tab-content" style="background:rgba(0, 0, 0, 0);">
 <!--<div id="myTabContent" class="tab-content" ng-style="{'background-image':'url(/images/bg.jpg)'}">-->
 
 	<div class="tab-pane fade in active" id="home" ng-if="currentindex==0">
@@ -27,16 +50,18 @@
 		<p align="center" ng-if="infocomplete">Personal information in-complete! </p>
 
 		<p align="center" ng-if="nolist">No appointment today! </p>
-		
-		<div class="row">
-			<div class="col-xs-4" ng-repeat="item in todayappointlist track by  $index">
-				<div style="border:solid;border-color: #CCCCCC;text-align: center;background: white;margin: 10px;">
-					<p>Customer name:{{item.name}}</p>
-					<p>Customer Email:{{item.email}}</p>
-					<p>Customer Phone:{{item.phone}}</p>
-					<p>Date&time:{{item.scheduletime}}</p>
+
+		<div  class="row">
+			<p align="center">Today's appointment</p>
+			<div  style="margin-left: 450px;" class="col-xs-4" ng-repeat="item in todayappointlist track by  $index">
+				<div style="border:solid;border-color: #a4ff3f;text-align: center;background: white;margin: 10px;">
+					<p>Patient  name : {{item.name}}</p>
+					<p>Patient email : {{item.email}}</p>
+					<p>Patient phone : {{item.phone}}</p>
+					<p>Date&time     : {{item.scheduletime}}</p>
 				</div>
 			</div>
+
 		</div>
 
 	</div>
@@ -48,14 +73,146 @@
 	<div ui-calendar="uiConfig.calendar" ng-model="eventSources" ng-click="alertEventOnClick()"></div>
 </div>
 
+	<!--All Events-->
+
 <div class="tab-pane fade in active" id="home" ng-if="currentindex==3">
-	<h2>All Events</h2>
-	<div style="margin-left: 40px;" ng-repeat="item in historylist track by $index">
-		<div style="border:solid;background: white;width: 50%;border-color: #CCCCCC">
+	<h2 align="center">All Events</h2>
+
+	<div align="center">
+		Search for : <input type="text"  placeholder="search for " ng-model="searchStr">
+	</div>
+
+	<div style="margin-left: 450px;" ng-repeat="item in data_arr  | startFrom:currentPage*pageSize | limitTo:pageSize | filter :searchStr ">
+		<div style="border:solid;background: white;width: 50%;border-color: #a4ff3f; margin:10px;">
 			<h4>{{item.scheduletime}}</h4>
 			<p>Customer:{{item.name}}</p>
 			<p>Gender:{{item.gender}}</p>
 		</div>
 	</div>
+	<div align="center">
+		<button  ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+			Previous
+		</button>
+			{{currentPage+1}}/{{numberOfPages()}}
+		<button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+			Next
+		</button>
+	</div>
+
 </div>
+
+
+<div class="tab-pane fade in active" id="home2" ng-if="currentindex==5">
+
+	  <div class="panel panel-default">
+    <div class="panel-heading">
+     Account Management
+    </div>
+    <div class="row wrapper">
+      <div class="col-sm-5 m-b-xs">
+        <button class="btn btn-sm btn-danger" ng-click="adddoctor()">Add new account</button>
+        <input  placeholder="New Account Email Adress" ng-model="data.email" />
+      </div>
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group">
+          <input type="text" class="input-sm form-control" placeholder="Search" ng-model="data.keyword">
+          <span class="input-group-btn">
+            <button class="btn btn-sm btn-default" type="button" ng-click="searchdoctor()">Go!</button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Account Level</th>
+            <th>Email</th>
+            <th>Sign up date</th>
+            <th>Status</th>
+            <th>Action </th>
+            
+            <th style="width:30px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in doctorlist track by $index">
+            <td>{{item.name}}</td>
+            <td ng-if="item.admin==1"><span class="label bg-warning" style="background: orange;">doctor&root</span></td>
+            <td ng-if="item.admin==0"><span class="label bg-warning" style="background: orange;">doctor</span></td>
+            <td>{{item.email}}</td>
+            <td>{{item.createtime}}</td>
+            <td ng-if="item.status==1"><span class="label bg-warning" style="background: green;">Active</span></td>
+            <td ng-if="item.status==0"><span class="label bg-warning" style="background: #c0c0c0;">Inactive</span></td>
+            <td>
+              <button ng-if="item.status==1" class="btn btn-video" ng-click="setdoctor('status',0,$index)">Inactive</button>
+              <button ng-if="item.status==0" class="btn btn-success" ng-click="setdoctor('status',1,$index)">Active</button>
+              <button ng-if="item.admin==0" class="btn btn-danger" ng-click="setdoctor('admin',1,$index)">Set to management</button>
+              <button class="btn btn-danger" style="background: black;border-color: black;" ng-click="deletedoctor($index)">Delete</button>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <footer class="panel-footer">
+      <div class="row">
+        <div class="col-lg-7 text-right text-center-xs">                
+          <ul class="pagination pagination-sm m-t-none m-b-none">
+            <li ng-click="pengpage('dec')"><a ><i class="fa fa-chevron-left"></i></a></li>
+            <li><a >{{page}}</a></li>
+            <li ng-click="pengpage('add')"><a ><i class="fa fa-chevron-right"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+
 </div>
+
+
+</div>
+
+<!--<div class="footer ">-->
+	<!--<div class="container" style="background-color: #1a1a1a; width: 100%; bottom:0;">-->
+		<!--<div class="row footer-top">-->
+			<!--<div class="col-sm-6 col-lg-6">-->
+				<!--<h4></h4>-->
+				<!--<p style="color: white">iTongue - your health provider.</p>-->
+			<!--</div>-->
+			<!--<div class="col-sm-6  col-lg-5 col-lg-offset-1">-->
+				<!--<div class="row about">-->
+					<!--<div class="col-xs-3">-->
+						<!--<h4 style="color: white">About</h4>-->
+						<!--<ul class="list-unstyled">-->
+							<!--<li>-->
+								<!--<a href="">About us</a>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</div>-->
+					<!--<div class="col-xs-3">-->
+						<!--<h4 style="color: white">Contact us</h4>-->
+						<!--<ul class="list-unstyled">-->
+							<!--<li>-->
+								<!--<a target="_blank" title="云梦网官方微博" href="">Weichat</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a href="">Email</a>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</div>-->
+				<!--</div>-->
+
+			<!--</div>-->
+		<!--</div>-->
+		<!--<hr>-->
+		<!--<div class="row footer-bottom">-->
+			<!--<ul class="list-inline text-center">-->
+				<!--<li>Copyright &copy;2017 iTongue  All Rights Reserved.</li>-->
+			<!--</ul>-->
+		<!--</div>-->
+	<!--</div>-->
+<!--</div>-->

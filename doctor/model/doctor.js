@@ -15,7 +15,10 @@ var doctorSchema = new Schema({
  introduction:String,
  avaliabletime:Array,
  headimg:String,
- appointmenttime:Array
+ appointmenttime:Array,
+ createtime:Date,
+ status:Number,
+ admin:Number
 },{
 	versionKey: false
 });
